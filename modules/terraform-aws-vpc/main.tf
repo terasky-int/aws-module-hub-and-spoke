@@ -196,8 +196,8 @@ resource "aws_default_route_table" "default" {
 ################################################################################
 
 resource "aws_route_table" "public" {
-  count = local.create_vpc && length(var.public_subnets) > 0 ? local.nat_gateway_count : 0
-
+  # count = local.create_vpc && length(var.public_subnets) > 0 ? local.nat_gateway_count : 0
+  count  = local.create_vpc && length(var.public_subnets) > 0 ? var.public_subnets : 0
   vpc_id = local.vpc_id
 
   tags = merge(
