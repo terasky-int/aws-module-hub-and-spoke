@@ -211,17 +211,17 @@ resource "aws_route_table" "public" {
   )
 }
 
-resource "aws_route" "public_internet_gateway" {
-  count = local.create_vpc && var.create_igw && length(var.public_subnets) > 0 ? local.nat_gateway_count : 0
+# resource "aws_route" "public_internet_gateway" {
+#   count = local.create_vpc && var.create_igw && length(var.public_subnets) > 0 ? local.nat_gateway_count : 0
 
-  route_table_id         = element(aws_route_table.public[*].id, count.index)
-  destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.this[0].id
+#   route_table_id         = element(aws_route_table.public[*].id, count.index)
+#   destination_cidr_block = "0.0.0.0/0"
+#   gateway_id             = aws_internet_gateway.this[0].id
 
-  timeouts {
-    create = "5m"
-  }
-}
+#   timeouts {
+#     create = "5m"
+#   }
+# }
 
 resource "aws_route" "public_internet_gateway_ipv6" {
   count = local.create_vpc && var.create_igw && var.enable_ipv6 && length(var.public_subnets) > 0 ? local.nat_gateway_count : 0
@@ -1221,15 +1221,15 @@ resource "aws_route_table_association" "intra" {
   )
 }
 
-# resource "aws_route_table_association" "public" {
-#   count = local.create_vpc && length(var.public_subnets) > 0 ? length(var.public_subnets) : 0
+resource "aws_route_table_association" "public" {
+  count = local.create_vpc && length(var.public_subnets) > 0 ? length(var.public_subnets) : 0
 
-#   subnet_id = element(aws_subnet.public[*].id, count.index)
-#   route_table_id = element(
-#     aws_route_table.public[*].id,
-#     var.single_nat_gateway ? 0 : count.index,
-#   )
-# }
+  subnet_id = element(aws_subnet.public[*].id, count.index)
+  route_table_id = element(
+    aws_route_table.public[*].id,
+    var.single_nat_gateway ? 0 : count.index,
+  )
+}
 
 ################################################################################
 # Customer Gateways

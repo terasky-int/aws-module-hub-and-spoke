@@ -353,10 +353,10 @@ output "intra_route_table_association_ids" {
   value       = aws_route_table_association.intra[*].id
 }
 
-# output "public_route_table_association_ids" {
-#   description = "List of IDs of the public route table association"
-#   value       = aws_route_table_association.public[*].id
-# }
+output "public_route_table_association_ids" {
+  description = "List of IDs of the public route table association"
+  value       = aws_route_table_association.public[*].id
+}
 
 output "dhcp_options_id" {
   description = "The ID of the DHCP options"
