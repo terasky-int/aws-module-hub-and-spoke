@@ -283,10 +283,10 @@ output "intra_route_table_ids" {
   value       = aws_route_table.intra[*].id
 }
 
-output "public_internet_gateway_route_id" {
-  description = "ID of the internet gateway route"
-  value       = try(aws_route.public_internet_gateway[0].id, "")
-}
+# output "public_internet_gateway_route_id" {
+#   description = "ID of the internet gateway route"
+#   value       = try(aws_route.public_internet_gateway[0].id, "")
+# }
 
 output "public_internet_gateway_ipv6_route_id" {
   description = "ID of the IPv6 internet gateway route"
