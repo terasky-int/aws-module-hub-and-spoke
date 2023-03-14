@@ -1,5 +1,5 @@
 output "firewall_subnets" {
-  description = "List of firewall subnets cidts"
+  description = "List of firewall subnets cidrs"
   value       = module.vpc.firewall_subnets
 }
 
